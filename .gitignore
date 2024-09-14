@@ -1,0 +1,16 @@
+# Ignorowanie plików konfiguracyjnych PyCharm
+.idea/
+
+# Ignorowanie wirtualnego środowiska Python
+venv/
+__pycache__/
+
+# Ignorowanie plików logów
+*.log
+
+# Ignorowanie plików środowiskowych (np. klucz API)
+.env
+
+# Ignorowanie plików systemowych
+.DS_Store
+Thumbs.db
