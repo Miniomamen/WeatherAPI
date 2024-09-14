@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Weather App</h1>
+        <form method="POST">
+            <label for="city">Enter city name:</label>
+            <input type="text" id="city" name="city" placeholder="Enter city" required>
+
+            <label for="forecast_days">Forecast for how many days? (0 for current weather):</label>
+            <input type="number" id="forecast_days" name="forecast_days" value="0" min="0">
+
+            <button type="submit">Check weather</button>
+        </form>
+
+        {% if city and not error %}
+            {% if forecast %}
+                <div class="weather-box">
+                    <h3>Weather forecast for {{ city }}:</h3>
+                    <ul>
+                        {% for day in forecast %}
+                            <li>
+                                <strong>{{ day.date }}</strong> - Max: {{ day.tempmax }}°C, Min: {{ day.tempmin }}°C,
+                                Description: {{ day.conditions }}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% else %}
+                <div class="weather-box">
+                    <h3>Current weather in {{ city }}:</h3>
+                    <p><strong>Date and Time:</strong> {{ datetime }}</p>
+                    <p><strong>Temperature:</strong> {{ temperature }}</p>
+                    <p><strong>Humidity:</strong> {{ humidity }}</p>
+                    <p><strong>Wind Speed:</strong> {{ wind_speed }}</p>
+                    <p><strong>Description:</strong> {{ description }}</p>
+                </div>
+            {% endif %}
+        {% elif error %}
+            <div class="error-box">
+                <p>Error: {{ error }}</p>
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>
